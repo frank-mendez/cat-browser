@@ -1,26 +1,39 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, Dispatch, SetStateAction, useState } from 'react'
 
-type CatBrowserProviderProps = {
+interface ICatBrowserProviderProps {
 	children: React.ReactNode
 }
 
-interface CatBrowserState {
-	breeds: string[]
-	setBreeds: React.Dispatch<React.SetStateAction<never[]>>
+interface ICatBreed {
+	name: string
+	id: string
 }
 
-const catStateDefaultValues: CatBrowserState = {
+interface ICatBrowserContext {
+	breeds: ICatBreed[]
+	selectedBreed: string
+	setBreeds: Dispatch<SetStateAction<ICatBreed[]>>
+	setSelectedBreed: Dispatch<SetStateAction<string>>
+}
+
+export const CatBrowserContext = createContext<ICatBrowserContext>({
 	breeds: [],
 	setBreeds: () => {},
-}
+	selectedBreed: '',
+	setSelectedBreed: () => {},
+})
 
-export const CatBrowserContext = createContext<CatBrowserState>(catStateDefaultValues)
-
-const CatBrowserProvider = (props: CatBrowserProviderProps) => {
+const CatBrowserProvider = (props: ICatBrowserProviderProps) => {
 	const { children } = props
-	const [breeds, setBreeds] = useState([])
+	const [breeds, setBreeds] = useState([
+		{
+			name: '',
+			id: '',
+		},
+	])
+	const [selectedBreed, setSelectedBreed] = useState('')
 
-	return <CatBrowserContext.Provider value={{ breeds, setBreeds }}>{children}</CatBrowserContext.Provider>
+	return <CatBrowserContext.Provider value={{ breeds, setBreeds, selectedBreed, setSelectedBreed }}>{children}</CatBrowserContext.Provider>
 }
 
 export default CatBrowserProvider
