@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 
 interface ImageLoaderProps {
 	src: string
@@ -17,7 +17,7 @@ const ImageLoader = (props: ImageLoaderProps) => {
 	return (
 		<>
 			{isLoading && <Spinner style={{ margin: 'auto', marginTop: '30px' }} animation='border' />}
-			<img style={{ visibility: isLoading ? 'hidden' : 'visible' }} onLoad={handleLoad} className='img-fluid' src={src} />
+			<img alt={src} style={{ visibility: isLoading ? 'hidden' : 'visible' }} onLoad={handleLoad} className='img-fluid' src={src} />
 		</>
 	)
 }

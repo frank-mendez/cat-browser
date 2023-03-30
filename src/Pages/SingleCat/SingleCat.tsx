@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { Fragment, useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ImageLoader from '../../Common/ImageLoader'
 import './SingleCat.css'
 

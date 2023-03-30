@@ -27,7 +27,6 @@ const Results = () => {
 					},
 				})
 				.then((data: any) => {
-					console.log('data', data)
 					setSearchResult(data.data)
 					setResultTotal(data.data.length)
 					setIsLoading(false)
@@ -38,7 +37,7 @@ const Results = () => {
 					//setError(true)
 				})
 		}
-	}, [selectedBreed, limit])
+	}, [selectedBreed, limit, setResultTotal])
 
 	const handleClick = (id: string) => {
 		navigate(`/${id}`)

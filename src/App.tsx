@@ -5,7 +5,7 @@ import './App.css'
 import CatBrowserProvider from './Context/CatBrowserProvider'
 import MainRoutes from './Routes/MainRoutes'
 
-function App() {
+function App(): JSX.Element {
 	return (
 		<CatBrowserProvider>
 			<Navbar bg='light' expand='lg'>
