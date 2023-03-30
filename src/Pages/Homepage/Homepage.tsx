@@ -1,8 +1,9 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
+import { Alert, Form } from 'react-bootstrap'
 import { CatBrowserContext } from '../../Context/CatBrowserProvider'
 import './Homepage.css'
+import Results from './Results/Results'
 
 interface CatBreeds {
 	name: string
@@ -10,9 +11,9 @@ interface CatBreeds {
 }
 
 const Homepage = () => {
-	const { setBreeds } = useContext(CatBrowserContext)
+	const { setBreeds, selectedBreed, setSelectedBreed } = useContext(CatBrowserContext)
 	const [catBreeds, setCatBreeds] = useState<CatBreeds[]>([])
-	const [selectedCat, setSelectedCat] = useState('')
+	const [error, setError] = useState(false)
 
 	useEffect(() => {
 		if (catBreeds.length === 0) {
@@ -24,7 +25,6 @@ const Homepage = () => {
 					},
 				})
 				.then((data) => {
-					console.log('data', data)
 					const { data: breedArr } = data
 					const breedName = breedArr.map((breed: { name: string; id: string }) => {
 						return {
@@ -32,36 +32,44 @@ const Homepage = () => {
 							id: breed.id,
 						}
 					})
-					console.log('breedName', breedName)
 					setCatBreeds(breedName)
 					setBreeds(breedName)
 				})
 				.catch((err) => {
 					console.error('error', err)
+					setError(true)
 				})
 		}
 	}, [setBreeds, catBreeds])
 
 	const handleCatChange = (e: any) => {
-		console.log(e.target.value)
-		setSelectedCat(e.target.value)
+		setSelectedBreed(e.target.value)
 	}
 
 	return (
-		<Form>
-			<Form.Group controlId='catSelect'>
-				<Form.Label>Select a cat breed:</Form.Label>
-				<Form.Control as='select' value={selectedCat} onChange={handleCatChange}>
-					{catBreeds.map((catBreed) => {
-						return (
-							<option key={catBreed.id} value={catBreed.id}>
-								{catBreed.name}
-							</option>
-						)
-					})}
-				</Form.Control>
-			</Form.Group>
-		</Form>
+		<Fragment>
+			{error && (
+				<Alert className='mb-5' variant='danger'>
+					Something went wrong
+				</Alert>
+			)}
+			<Form>
+				<Form.Group controlId='catSelect'>
+					<Form.Label>Select a cat breed:</Form.Label>
+					<Form.Control as='select' value={selectedBreed} onChange={handleCatChange}>
+						<option value=''>- Select -</option>
+						{catBreeds.map((catBreed) => {
+							return (
+								<option key={catBreed.id} value={catBreed.id}>
+									{catBreed.name}
+								</option>
+							)
+						})}
+					</Form.Control>
+				</Form.Group>
+			</Form>
+			<Results />
+		</Fragment>
 	)
 }
 

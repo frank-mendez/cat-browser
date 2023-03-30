@@ -13,7 +13,7 @@ function App() {
 					<Navbar.Brand href='#home'>Cat Browser</Navbar.Brand>
 				</Container>
 			</Navbar>
-			<Container>
+			<Container className='mt-5'>
 				<BrowserRouter>
 					<MainRoutes />
 				</BrowserRouter>
