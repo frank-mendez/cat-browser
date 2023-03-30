@@ -41,7 +41,6 @@ const Results = () => {
 	}, [selectedBreed, limit])
 
 	const handleClick = (id: string) => {
-		console.log('id', id)
 		navigate(`/${id}`)
 	}
 
