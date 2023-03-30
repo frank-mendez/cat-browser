@@ -12,7 +12,6 @@ module.exports = {
 	},
 	plugins: ['react'],
 	rules: {
-		indent: [2, 'tab'],
-		'no-tabs': 0,
+		indent: ['error', 'tab'],
 	},
 }
