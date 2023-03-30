@@ -11,7 +11,7 @@ interface CatBreeds {
 }
 
 const Homepage = () => {
-	const { setBreeds, selectedBreed, setSelectedBreed } = useContext(CatBrowserContext)
+	const { setBreeds, selectedBreed, setSelectedBreed, setLimit } = useContext(CatBrowserContext)
 	const [catBreeds, setCatBreeds] = useState<CatBreeds[]>([])
 	const [error, setError] = useState(false)
 
@@ -36,7 +36,6 @@ const Homepage = () => {
 					setBreeds(breedName)
 				})
 				.catch((err) => {
-					console.error('error', err)
 					setError(true)
 				})
 		}
@@ -44,6 +43,8 @@ const Homepage = () => {
 
 	const handleCatChange = (e: any) => {
 		setSelectedBreed(e.target.value)
+		//Resets limit to default
+		setLimit(4)
 	}
 
 	return (
